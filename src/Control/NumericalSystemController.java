@@ -94,28 +94,35 @@ public class NumericalSystemController {
         String numTwo = txtNumTwo.getText();
         String numSystem = this.getNumericalSystemOperator();
 
-        if (cboNSOperation.getValue() != null && cboOperation.getValue() != null) {
-            if (numericalSystem.verify(numSystem, numOne)) {
-                if (numericalSystem.verify(numSystem, numTwo)) {
-                    if (numericalSystem.divideByCero(numOne, numTwo, this.getOperator())) {
-                        String result = numericalSystem.operationNumericalSystem(numSystem, numOne, numTwo, operator);
-                        txtResult.setText(result);
-                    } else {
-                        Alert alert = new Alert(Alert.AlertType.ERROR, "No se realizan divisiones entre 0", ButtonType.CLOSE);
-                        alert.showAndWait();
-                    }
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR, "El número 2 no equivale al sistema seleccionado", ButtonType.CLOSE);
-                    alert.showAndWait();
-                }
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR, "El número 1 no equivale al sistema seleccionado", ButtonType.CLOSE);
-                alert.showAndWait();
-            }
+        if (cboNSOperation.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No ha seleccionado el Sistema Numerico", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+        if (cboOperation.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No ha seleccionado el Operador", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+        if (!numericalSystem.verify(numSystem, numOne)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "El número 1 no equivale al sistema seleccionado", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+
+        if (!numericalSystem.verify(numSystem, numTwo)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "El número 2 no equivale al sistema seleccionado", ButtonType.CLOSE);
+            alert.showAndWait();
+            return;
+        }
+        if (numericalSystem.divideByCero(numOne, numTwo, this.getOperator())) {
+            String result = numericalSystem.operationNumericalSystem(numSystem, numOne, numTwo, operator);
+            txtResult.setText(result);
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "No ha seleccionado el Sistema Numerico o el operador", ButtonType.CLOSE);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "No se realizan divisiones entre 0", ButtonType.CLOSE);
             alert.showAndWait();
         }
+
     }
 
     @FXML
@@ -248,7 +255,7 @@ public class NumericalSystemController {
         this.numericalSystemConvert();
         this.getNumericalSystemToConvert();
         this.operatorSN();
-        
+
         txtNumberOneConversion.textProperty().addListener((observable, oldValue, newValue) -> {
             txtNumberOneConversion.setText(newValue.toUpperCase()); // Convierte a mayúsculas automáticamente
         });

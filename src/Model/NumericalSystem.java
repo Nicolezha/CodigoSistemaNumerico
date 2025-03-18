@@ -394,29 +394,13 @@ public class NumericalSystem {
     public boolean verify(String systemName, String number) {
         try {
             if ("Binario".equals(systemName)) {
-                if (number.matches("[01]+")) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return number.matches("[01]+");
             } else if ("Hexadecimal".equals(systemName)) {
-                if (number.matches("[0-9A-Fa-f]+")) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return number.matches("[0-9A-Fa-f]+");
             } else if ("Octal".equals(systemName)) {
-                if (number.matches("[0-7]+")) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return number.matches("[0-7]+");
             } else if ("Decimal".equals(systemName)) {
-                if (number.matches("[0-9]+")) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return number.matches("[0-9]+");
             } else {
                 return false;
             }
