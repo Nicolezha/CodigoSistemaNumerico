@@ -4,6 +4,9 @@
  */
 package Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Nicole Hernandez
@@ -12,7 +15,76 @@ public class NumericalSystem {
 
     String numericalSystem;
 
+    Map<String, String> mapBinaryToOctal;
+    Map<String, String> mapOctalToBinary;
+    Map<String, String> mapBinaryToHex;
+    Map<String, String> mapHexToBinary;
+
     public NumericalSystem() {
+        this.initialiOctal();
+        this.initialiHexa();
+    }
+
+    private void initialiOctal() {
+        mapBinaryToOctal = Map.of(
+                "000", "0",
+                "001", "1",
+                "010", "2",
+                "011", "3",
+                "100", "4",
+                "101", "5",
+                "110", "6",
+                "111", "7"
+        );
+
+        mapOctalToBinary = Map.of(
+                "0", "000",
+                "1", "001",
+                "2", "010",
+                "3", "011",
+                "4", "100",
+                "5", "101",
+                "6", "110",
+                "7", "111"
+        );
+    }
+
+    private void initialiHexa() {
+        mapBinaryToHex = new HashMap<>();
+        mapBinaryToHex.put("0000", "0");
+        mapBinaryToHex.put("0001", "1");
+        mapBinaryToHex.put("0010", "2");
+        mapBinaryToHex.put("0011", "3");
+        mapBinaryToHex.put("0100", "4");
+        mapBinaryToHex.put("0101", "5");
+        mapBinaryToHex.put("0110", "6");
+        mapBinaryToHex.put("0111", "7");
+        mapBinaryToHex.put("1000", "8");
+        mapBinaryToHex.put("1001", "9");
+        mapBinaryToHex.put("1010", "A");
+        mapBinaryToHex.put("1011", "B");
+        mapBinaryToHex.put("1100", "C");
+        mapBinaryToHex.put("1101", "D");
+        mapBinaryToHex.put("1110", "E");
+        mapBinaryToHex.put("1111", "F");
+
+        mapHexToBinary = new HashMap<>();
+        mapHexToBinary.put("0", "0000");
+        mapHexToBinary.put("1", "0001");
+        mapHexToBinary.put("2", "0010");
+        mapHexToBinary.put("3", "0011");
+        mapHexToBinary.put("4", "0100");
+        mapHexToBinary.put("5", "0101");
+        mapHexToBinary.put("6", "0110");
+        mapHexToBinary.put("7", "0111");
+        mapHexToBinary.put("8", "1000");
+        mapHexToBinary.put("9", "1001");
+        mapHexToBinary.put("A", "1010");
+        mapHexToBinary.put("B", "1011");
+        mapHexToBinary.put("C", "1100");
+        mapHexToBinary.put("D", "1101");
+        mapHexToBinary.put("E", "1110");
+        mapHexToBinary.put("F", "1111");
     }
 
     public NumericalSystem(String numericalSystem) {
@@ -155,9 +227,9 @@ public class NumericalSystem {
             binarySubstring = something.substring(i, i + increase);
 
             if (base == 8) {
-                answer += BinaryOctalEnum.getOctal(binarySubstring);
+                answer += this.mapBinaryToOctal.get(binarySubstring);
             } else {
-                answer += BinaryHexadecimalEnum.getHexadecimal(binarySubstring);
+                answer += this.mapBinaryToHex.get(binarySubstring);
             }
         }
         return answer;
@@ -201,9 +273,9 @@ public class NumericalSystem {
             character = something.charAt(i);
             valueInt = this.convertToDecimal(character);
             if (base == 8) {
-                binary += BinaryOctalEnum.getBinary(valueInt + "");
+                binary += this.mapOctalToBinary.get(valueInt + "");
             } else {
-                binary += BinaryHexadecimalEnum.getBinary(character + "");
+                binary += this.mapHexToBinary.get(character + "");
             }
         }
         return binary;

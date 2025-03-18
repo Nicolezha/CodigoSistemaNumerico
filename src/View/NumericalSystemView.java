@@ -31,5 +31,11 @@ public class NumericalSystemView {
     
         
         System.out.println(num.divideByCero("1000", "000", "División"));
+        
+        System.out.println(num.hexadecimalToOctal("101"));
+        System.out.println(num.octalToBinary("74"));
+        System.out.println(num.binaryToDecimal("101"));
+        System.out.println(num.binaryToOctal("10101"));
+        System.out.println(num.octalToHexadecimal("231"));
     }
 }
